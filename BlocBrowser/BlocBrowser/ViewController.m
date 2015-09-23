@@ -36,7 +36,7 @@
     self.textField.returnKeyType = UIReturnKeyDone;
     self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.textField.placeholder = NSLocalizedString(@"Website URL", @"Placeholder text for web browser URL field");
+    self.textField.placeholder = NSLocalizedString(@"Search or enter website name", @"Placeholder text for web browser URL field");
     self.textField.backgroundColor = [UIColor colorWithWhite:220/255.0f alpha:1];
     self.textField.delegate = self;
     
@@ -110,19 +110,25 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     
-    NSString *URLString = textField.text;
+    NSString *URLString = [textField.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+    
+    
     
     NSURL *URL = [NSURL URLWithString:URLString];
     
+    
     if (!URL.scheme){
         //User didn't type http: or https:
-        URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", URLString]];
+        
+        URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.google.com/search?q=%@", URLString]];
     }
     
     if (URL) {
         NSURLRequest *request = [NSURLRequest requestWithURL:URL];
         [self.webView loadRequest:request];
     }
+    
+    
     return NO;
 }
 
