@@ -128,8 +128,8 @@
 #pragma mark - WKNavigationDelegate
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
-    
-    UIAlertController *welcomeMessage = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Welcome", @"Welcome") message: [welcomeMessage description] preferredStyle:UIAlertControllerStyleAlert];
+//    
+//    UIAlertController *welcomeMessage = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Welcome", @"Welcome") message: [welcomeMessage description] preferredStyle:UIAlertControllerStyleAlert];
     
     [self updateButtonsAndTitle];
     
