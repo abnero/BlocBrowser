@@ -16,6 +16,5 @@
 
 -(void) resetWebView;
 
-
 @end
 

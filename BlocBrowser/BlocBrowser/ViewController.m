@@ -57,7 +57,6 @@
     [self.stopButton setTitle:NSLocalizedString(@"Stop", @"Stop Command") forState:UIControlStateNormal];
     [self.reloadButton setTitle:NSLocalizedString(@"Reload", @"Reload Command") forState:UIControlStateNormal];
     
-    
     for (UIView *viewToAdd in @[self.webView, self.textField, self.backButton, self.forwardButton, self.stopButton, self.reloadButton] ) {
         [mainView addSubview:viewToAdd];
     }
@@ -72,9 +71,20 @@
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicator];
     
-    [self addButtonTargets];
+    UIAlertController *welcomeMessage = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Welcome", @"Hola") message:@" " preferredStyle:UIAlertControllerStyleAlert];
+    //display welcomeMessage
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil];
+    [welcomeMessage addAction:okAction];
+    
+    [self presentViewController:welcomeMessage animated:YES completion:nil];
+    
+    
     
     // Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    
 }
 
 -(void)viewWillLayoutSubviews {
@@ -96,6 +106,7 @@
         thisButton.frame = CGRectMake (currentButtonX, CGRectGetMaxY(self.webView.frame), buttonWidth, itemHeight);
         currentButtonX  += buttonWidth;
     }
+    [self addButtonTargets];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -117,6 +128,9 @@
     }
     
     if (URL) {
+        
+        URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", URLString]];
+    
         NSURLRequest *request = [NSURLRequest requestWithURL:URL];
         [self.webView loadRequest:request];
     }
@@ -128,9 +142,6 @@
 #pragma mark - WKNavigationDelegate
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
-    
-    UIAlertController *welcomeMessage = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Welcome", @"Welcome") message: [welcomeMessage description] preferredStyle:UIAlertControllerStyleAlert];
-    
     [self updateButtonsAndTitle];
     
 }
@@ -193,15 +204,31 @@
     [self updateButtonsAndTitle];
 }
 
+- (void) reload {
+    [self.webView reload];
+}
+
+- (void) goBack {
+    [self.webView goBack];
+}
+
+-(void) goForward {
+    [self.webView goForward];
+}
+
+-(void) stopLoading {
+    [self.webView stopLoading];
+}
+
 -(void) addButtonTargets {
     for (UIButton *button in @[self.backButton, self.forwardButton, self.stopButton, self.reloadButton]) {
         [button removeTarget:nil action:NULL forControlEvents:UIControlEventTouchUpInside];
     }
     
-    [self.backButton addTarget:self.view action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-    [self.forwardButton addTarget:self.view action:@selector(goForward) forControlEvents:UIControlEventTouchUpInside];
-    [self.stopButton addTarget:self.view action:@selector(stopLoading) forControlEvents:UIControlEventTouchUpInside];
-    [self.reloadButton addTarget:self.view action:@selector(reload) forControlEvents:UIControlEventTouchUpInside];
+    [self.backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    [self.forwardButton addTarget:self action:@selector(goForward) forControlEvents:UIControlEventTouchUpInside];
+    [self.stopButton addTarget:self action:@selector(stopLoading) forControlEvents:UIControlEventTouchUpInside];
+    [self.reloadButton addTarget:self action:@selector(reload) forControlEvents:UIControlEventTouchUpInside];
 }
 
 
