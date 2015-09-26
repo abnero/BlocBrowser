@@ -128,7 +128,11 @@
 #pragma mark - WKNavigationDelegate
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
+    
+    UIAlertController *welcomeMessage = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Welcome", @"Welcome") message: [welcomeMessage description] preferredStyle:UIAlertControllerStyleAlert];
+    
     [self updateButtonsAndTitle];
+    
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
@@ -199,6 +203,7 @@
     [self.stopButton addTarget:self.view action:@selector(stopLoading) forControlEvents:UIControlEventTouchUpInside];
     [self.reloadButton addTarget:self.view action:@selector(reload) forControlEvents:UIControlEventTouchUpInside];
 }
+
 
 
 
