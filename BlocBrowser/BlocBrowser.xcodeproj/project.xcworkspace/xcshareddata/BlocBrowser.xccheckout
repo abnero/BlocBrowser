@@ -5,7 +5,11 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
+<<<<<<< HEAD
 	<string>EB167C4C-1E49-474F-8FFC-6B68862A0059</string>
+=======
+	<string>3119C773-94FA-4323-837F-7A1D480B4DE1</string>
+>>>>>>> checkpoint-24-ClearingBrowserHistory
 	<key>IDESourceControlProjectName</key>
 	<string>BlocBrowser</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
