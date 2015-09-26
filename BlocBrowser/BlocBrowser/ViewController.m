@@ -57,7 +57,6 @@
     [self.stopButton setTitle:NSLocalizedString(@"Stop", @"Stop Command") forState:UIControlStateNormal];
     [self.reloadButton setTitle:NSLocalizedString(@"Reload", @"Reload Command") forState:UIControlStateNormal];
     
-    [self addButtonTargets];
     
     for (UIView *viewToAdd in @[self.webView, self.textField, self.backButton, self.forwardButton, self.stopButton, self.reloadButton] ) {
         [mainView addSubview:viewToAdd];
@@ -72,7 +71,8 @@
     
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicator];
-
+    
+    [self addButtonTargets];
     
     // Do any additional setup after loading the view, typically from a nib.
 }
