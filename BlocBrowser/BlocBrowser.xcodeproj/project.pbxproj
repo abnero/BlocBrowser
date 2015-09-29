@@ -13,6 +13,7 @@
 		1B50BDF21BAB5A8C0020F7C8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B50BDF11BAB5A8C0020F7C8 /* Images.xcassets */; };
 		1B50BDF51BAB5A8C0020F7C8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B50BDF31BAB5A8C0020F7C8 /* LaunchScreen.xib */; };
 		1B50BE011BAB5A8C0020F7C8 /* BlocBrowserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50BE001BAB5A8C0020F7C8 /* BlocBrowserTests.m */; };
+		1B8248FC1BB792CF000C82BB /* AwesomeFloatingToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8248FB1BB792CF000C82BB /* AwesomeFloatingToolbar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,8 @@
 		1B50BDFA1BAB5A8C0020F7C8 /* BlocBrowserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlocBrowserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B50BDFF1BAB5A8C0020F7C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B50BE001BAB5A8C0020F7C8 /* BlocBrowserTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlocBrowserTests.m; sourceTree = "<group>"; };
+		1B8248FA1BB792CF000C82BB /* AwesomeFloatingToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwesomeFloatingToolbar.h; sourceTree = "<group>"; };
+		1B8248FB1BB792CF000C82BB /* AwesomeFloatingToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwesomeFloatingToolbar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +89,8 @@
 				1B50BDF11BAB5A8C0020F7C8 /* Images.xcassets */,
 				1B50BDF31BAB5A8C0020F7C8 /* LaunchScreen.xib */,
 				1B50BDE41BAB5A8C0020F7C8 /* Supporting Files */,
+				1B8248FA1BB792CF000C82BB /* AwesomeFloatingToolbar.h */,
+				1B8248FB1BB792CF000C82BB /* AwesomeFloatingToolbar.m */,
 			);
 			path = BlocBrowser;
 			sourceTree = "<group>";
@@ -218,6 +223,7 @@
 				1B50BDED1BAB5A8C0020F7C8 /* ViewController.m in Sources */,
 				1B50BDEA1BAB5A8C0020F7C8 /* AppDelegate.m in Sources */,
 				1B50BDE71BAB5A8C0020F7C8 /* main.m in Sources */,
+				1B8248FC1BB792CF000C82BB /* AwesomeFloatingToolbar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
