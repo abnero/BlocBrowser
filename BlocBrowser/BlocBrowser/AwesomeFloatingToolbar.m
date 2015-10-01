@@ -16,6 +16,8 @@
 @property (nonatomic, strong) UILabel *currentLabel;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
+@property (nonatomic, strong) UIPinchGestureRecognizer *pinchGesture;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGesture;
 
 @end
 
@@ -68,11 +70,26 @@
         
         self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panFired:)];
         [self addGestureRecognizer:self.panGesture];
+        
+        self.pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchFired:)];
+        [self addGestureRecognizer:self.pinchGesture];
+
+        self.longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+        [self addGestureRecognizer:self.longPressGesture];
+
+        
     }
     
     return self;
 
     }
+
+-(void) pinchFired: (UIPinchGestureRecognizer *) recognizer {
+    //-(void) didPinchToResizeToolbar:(UIPinchGestureRecognizer *) recognizer
+    if ([self.delegate respondsToSelector:@selector(didPinchToResizeToolbar:)]) {
+        [self.delegate didPinchToResizeToolbar:recognizer];
+    }
+}
 
 -(void) tapFired:(UITapGestureRecognizer *) recognizer {
     if (recognizer.state == UIGestureRecognizerStateRecognized) { //#3
@@ -88,18 +105,54 @@
 }
 
 -(void) panFired: (UIPanGestureRecognizer *) recognizer {
-    if (recognizer.state == UIGestureRecognizerStateChanged) {
-        CGPoint translation = [recognizer translationInView:self];
+    //if (recognizer.state == UIGestureRecognizerStateChanged) {
+    CGPoint translation = [recognizer translationInView:self];
+    
+    NSLog(@"New translation: %@", NSStringFromCGPoint(translation));
+    
+    if ([self.delegate respondsToSelector:@selector(floatingToolbar:didTryToPanWithOffset:)]) {
+        [self.delegate floatingToolbar:self didTryToPanWithOffset:translation];
+    }
+    
+    [recognizer setTranslation:CGPointZero inView:self];
+    //}
+}
+
+- (void) longPress:(UILongPressGestureRecognizer *)recognizer {
+    self.colors = @[[UIColor colorWithRed:255/255.0 green:158/255.0 blue:203/255.0 alpha:1],
+                    [UIColor colorWithRed:10/255.0 green:105/255.0 blue:97/255.0 alpha:1],
+                    [UIColor colorWithRed:10/255.0 green:165/255.0 blue:164/255.0 alpha:1],
+                    [UIColor colorWithRed:255/255.0 green:179/255.0 blue:255/255.0 alpha:1]];
+    
+    NSMutableArray *labelsArray = [[NSMutableArray alloc] init];
+    
+    // Make the 4 labels
+    for (NSString *currentTitle in self.currentTitles) {
+        UILabel *label = [[UILabel alloc] init];
+        label.userInteractionEnabled = NO;
+        label.alpha = 0.25;
         
-        NSLog(@"New translation: %@", NSStringFromCGPoint(translation));
+        NSUInteger currentTitleIndex = [self.currentTitles indexOfObject:currentTitle]; // 0 through 3
+        NSString *titleForThisLabel = [self.currentTitles objectAtIndex:currentTitleIndex];
+        UIColor *colorForThisLabel = [self.colors objectAtIndex:currentTitleIndex];
         
-        if ([self.delegate respondsToSelector:@selector(floatingToolbar:didTryToPanWithOffset:)]) {
-            [self.delegate floatingToolbar:self didTryToPanWithOffset:translation];
-        }
+        label.textAlignment = NSTextAlignmentCenter;
+        label.font = [UIFont systemFontOfSize:10];
+        label.text = titleForThisLabel;
+        label.backgroundColor = colorForThisLabel;
+        label.textColor = [UIColor whiteColor];
         
-        [recognizer setTranslation:CGPointZero inView:self];
+        [labelsArray addObject:label];
+    }
+    
+    self.labels = labelsArray;
+    
+    for (UILabel *thisLabel in self.labels) {
+        [self addSubview:thisLabel];
     }
 }
+
+
     
 - (void) layoutSubviews {
     //set the frames for the 4 labels
